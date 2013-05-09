@@ -9,6 +9,7 @@ $VERSION = '1.01';
 
 use HTML::Entities;
 use HTML::Escape;
+use Escape::Houdini;
 
 =encoding utf8
 
@@ -114,6 +115,19 @@ escapes wide characters too.
 sub bench_html_entities {
 	my $escaped = HTML::Entities::encode_entities( $HTML, q(<>&"') );
 	}
+
+=item bench_escape_houdini
+
+Use L<Escape::Houdini> to encode. This is a simple wrapper around
+the (very small) Houdini C library. Bear in mind that it does slightly
+more than I<HTML::Escape> in term of escaping, which explains the difference
+in performance.
+
+=cut
+
+sub bench_escape_houdini {
+	my $escaped = Escape::Houdini::escape_html( $HTML );
+}
 
 =back
 
